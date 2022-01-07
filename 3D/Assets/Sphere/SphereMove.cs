@@ -1,4 +1,5 @@
-﻿using Assets.Interfaces;
+﻿using Assets.CameraConfigs;
+using Assets.Interfaces;
 using Assets.Resources;
 using UnityEngine;
 
@@ -43,6 +44,7 @@ namespace Assets.Sphere
         private void InitializeCamera()
         {
             _camera = Camera.main;
+            _camera.GetComponent<CameraFollow>().Follow(gameObject);
         }
     }
 }
