@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Assets.Sphere
 {
-    public class SphereMove : MonoBehaviour
+    public class PlayerMove : MonoBehaviour
     {
         public CharacterController CharacterController;
 
@@ -13,6 +13,7 @@ namespace Assets.Sphere
 
         private IInputService _inputService;
         private Camera _camera;
+        private float _zero = 0.001f;
 
         private void Start()
         {
@@ -28,12 +29,10 @@ namespace Assets.Sphere
         {
             var time = Time.deltaTime;
             var vector = Vector3.zero;
-            if (_inputService.Axis.sqrMagnitude > 0)
+            if (_inputService.Axis.sqrMagnitude > _zero)
             {
-                vector = _camera.transform.TransformDirection(_inputService.Axis);
-                vector.y = 0;
+                vector = new Vector3(_inputService.Axis.x, 0, _inputService.Axis.y);
                 vector.Normalize();
-                
                 transform.forward = vector;
 
                 vector += Physics.gravity;

@@ -5,36 +5,57 @@ namespace Assets.CameraConfigs
     public class CameraFollow : MonoBehaviour
     {
         public float Distance;
-        public float AngleX;
-        public float AngleY;
-        public float OffsetY;
+        public float CameraAngleX;
+        public float CameraWeigth;
 
         [SerializeField]
-        private Transform _following;
+        private Transform _player;
+        private Vector3 _playerPreviousPosition;
 
         public void Follow(GameObject gameObject)
         {
-            _following = gameObject.transform;
+            _player = gameObject.transform;
+            _playerPreviousPosition = _player.transform.position;
         }
 
         private void LateUpdate()
         {
-            if (_following == null)
+            if (_player == null)
             {
                 return;
             }
-            var rotation = Quaternion.Euler(AngleX, AngleY, 0);
-            var position = rotation * new Vector3(0, 0, -Distance) + GetFollowingPosition();
+            var cameraRotation = Quaternion.Euler(CameraAngleX, 0, 0);
+            var playerMoveDirection = GetPlayerMoveDirection();
+            var cameraPosition = GetCameraPosition(playerMoveDirection);
 
-            transform.rotation = rotation;
-            transform.position = position;
+            ChangeCameraposition(cameraPosition, cameraRotation);
+
+            SetupPlayerPreviousPosition();
         }
 
-        private Vector3 GetFollowingPosition()
+        private void SetupPlayerPreviousPosition()
         {
-            var followingPosition = _following.position;
-            followingPosition.y += OffsetY;
-            return followingPosition;
+            _playerPreviousPosition = _player.transform.position;
+        }
+
+        private Vector3 GetPlayerMoveDirection()
+        {
+            var playerMoveDirection = _player.transform.position - _playerPreviousPosition;
+            playerMoveDirection.Normalize();
+            return playerMoveDirection;
+        }
+
+        private Vector3 GetCameraPosition(Vector3 playerMoveDirection)
+        {
+            var cameraPosition = _player.transform.position - playerMoveDirection * Distance;
+            cameraPosition.y += CameraWeigth;
+            return cameraPosition;
+        }
+
+        private void ChangeCameraposition(Vector3 cameraPosition, Quaternion cameraRotation)
+        {
+            transform.SetPositionAndRotation(cameraPosition, cameraRotation);
+            transform.LookAt(_player.transform.position);
         }
     }
 }
