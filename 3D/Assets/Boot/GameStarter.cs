@@ -1,4 +1,4 @@
-﻿using Resources;
+﻿using Assets.Resources;
 using UnityEngine;
 
 namespace Assets.Boot
