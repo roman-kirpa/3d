@@ -1,8 +1,7 @@
-﻿using Assets.Interfaces;
-using System;
+﻿using Interfaces;
 using UnityEngine;
 
-namespace Assets.Services.Input
+namespace Services.Input
 {
     public class MobileInputService : IInputService
     {

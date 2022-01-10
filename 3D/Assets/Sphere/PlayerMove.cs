@@ -1,9 +1,9 @@
-﻿using Assets.CameraConfigs;
-using Assets.Interfaces;
-using Assets.Resources;
+﻿using CameraConfigs;
+using Interfaces;
+using Resources;
 using UnityEngine;
 
-namespace Assets.Sphere
+namespace Sphere
 {
     public class PlayerMove : MonoBehaviour
     {
@@ -43,7 +43,7 @@ namespace Assets.Sphere
         private void InitializeCamera()
         {
             _camera = Camera.main;
-            _camera.GetComponent<CameraFollow>().Follow(gameObject);
+            if (_camera != null) _camera.GetComponent<CameraFollow>().Follow(gameObject);
         }
     }
 }

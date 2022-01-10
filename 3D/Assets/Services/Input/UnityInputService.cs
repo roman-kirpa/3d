@@ -1,7 +1,7 @@
-﻿using Assets.Interfaces;
+﻿using Interfaces;
 using UnityEngine;
 
-namespace Assets.Services.Input
+namespace Services.Input
 {
     public class UnityInputService : IInputService
     {

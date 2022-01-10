@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets.CameraConfigs
+namespace CameraConfigs
 {
     public class CameraFollow : MonoBehaviour
     {
@@ -24,11 +24,11 @@ namespace Assets.CameraConfigs
             {
                 return;
             }
-            var cameraRotation = Quaternion.Euler(CameraAngleX, 0, 0);
+            var cameraRotation = Quaternion.Euler(0, CameraAngleX, 0);
             var playerMoveDirection = GetPlayerMoveDirection();
             var cameraPosition = GetCameraPosition(playerMoveDirection);
 
-            ChangeCameraposition(cameraPosition, cameraRotation);
+            ChangeCameraPosition(cameraPosition, cameraRotation);
 
             SetupPlayerPreviousPosition();
         }
@@ -52,7 +52,7 @@ namespace Assets.CameraConfigs
             return cameraPosition;
         }
 
-        private void ChangeCameraposition(Vector3 cameraPosition, Quaternion cameraRotation)
+        private void ChangeCameraPosition(Vector3 cameraPosition, Quaternion cameraRotation)
         {
             transform.SetPositionAndRotation(cameraPosition, cameraRotation);
             transform.LookAt(_player.transform.position);

@@ -1,22 +1,16 @@
-﻿using Assets.Interfaces;
-using Assets.Services.Input;
-using UnityEngine;
+﻿using BaseCode;
+using Interfaces;
 
-namespace Assets.Resources
+namespace Resources
 {
     public class Game
     {
         public static IInputService InputService;
+        public StateMachine StateMachine;
 
-        public Game()
+        public Game(ICoroutineRunner coroutineRunner)
         {
-            InitializeInputServise();
-        }
-
-        private void InitializeInputServise()
-        {
-            //InputService = Application.isEditor ? (IInputService)new UnityInputService() : (IInputService)new MobileInputService();
-            InputService = new MobileInputService();
+            StateMachine = new StateMachine(new SceneLoader(coroutineRunner));
         }
     }
 }
